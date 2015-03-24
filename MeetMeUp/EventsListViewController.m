@@ -9,7 +9,7 @@
 #import "EventsListViewController.h"
 #import "EventDetailViewController.h"
 
-@interface EventsListViewController () <UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating, UISearchBarDelegate>
+@interface EventsListViewController () <UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating, UISearchBarDelegate, UISearchControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *eventsTableView;
 @property NSArray *eventsArray;
@@ -37,18 +37,27 @@ NSString * const API_URL = @"https://api.meetup.com/2/open_events.json?zip=60604
 
     [self apiRequestFromURL:API_URL];
 
-
     // search bar
-
     self.searchResults = [[NSArray alloc] initWithArray:self.eventsArray];
+
+
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     self.searchController.searchResultsUpdater = self;
+    self.searchController.dimsBackgroundDuringPresentation = NO;
+
+    // delegate
+    self.searchController.searchBar.delegate = self;
+    self.searchController.searchResultsUpdater = self;
+
 
     // make a searchBar object
-    self.searchController.searchBar.frame = CGRectMake(self.searchController.searchBar.frame.origin.x, self.searchController.searchBar.frame.origin.y, self.searchController.searchBar.frame.size.width, 44.0);
+    self.searchController.searchBar.frame = CGRectMake(self.searchController.searchBar.frame.origin.x,
+                                                       self.searchController.searchBar.frame.origin.y,
+                                                       self.searchController.searchBar.frame.size.width,
+                                                       44.0);
     self.eventsTableView.tableHeaderView = self.searchController.searchBar;
-    self.definesPresentationContext = YES;
 
+    self.definesPresentationContext = YES;
 }
 
 #pragma mark -UITableViewDataSource
@@ -102,7 +111,6 @@ NSString * const API_URL = @"https://api.meetup.com/2/open_events.json?zip=60604
     cell.detailTextLabel.text = fullAddress;
 //    cell.imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:imageURL]];
 
-
     return cell;
 }
 
@@ -114,7 +122,15 @@ NSString * const API_URL = @"https://api.meetup.com/2/open_events.json?zip=60604
     {
         NSIndexPath *indexPath = [self.eventsTableView indexPathForCell:cell];
         EventDetailViewController *vc = segue.destinationViewController;
-        vc.eventDetails =  [self.eventsArray objectAtIndex:indexPath.row];
+
+        if (self.searchController.active)
+        {
+            vc.eventDetails =  [self.searchResults objectAtIndex:indexPath.row];
+        }
+        else
+        {
+            vc.eventDetails =  [self.eventsArray objectAtIndex:indexPath.row];
+        }
     }
 }
 
@@ -126,6 +142,14 @@ NSString * const API_URL = @"https://api.meetup.com/2/open_events.json?zip=60604
     NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"name contains[c] %@", searchString];
     self.searchResults = [self.eventsArray filteredArrayUsingPredicate:resultPredicate];
     [self.eventsTableView reloadData];
+}
+
+#pragma mark -UISearchControllerDelegate
+
+-(void)willPresentSearchController:(UISearchController *)searchController
+{
+    CGRect searchBarFrame = self.searchController.searchBar.frame;
+    [self.eventsTableView scrollRectToVisible:searchBarFrame animated:NO];
 }
 
 #pragma mark -Helper Methods
@@ -160,9 +184,6 @@ NSString * const API_URL = @"https://api.meetup.com/2/open_events.json?zip=60604
         [self.eventsTableView reloadData];
 
     }];
-
-    // Note, with asynchronous connection, do not try to use `data` or the object you parsed from theJSON after the block, here.
-    // Use it above, inside the block.
 }
 
 @end

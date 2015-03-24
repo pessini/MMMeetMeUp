@@ -294,9 +294,18 @@
                         <outlet property="eventNameLabel" destination="eQg-ue-0HF" id="gtg-zB-EGm"/>
                         <outlet property="groupInformationLabel" destination="ATE-lu-oDD" id="J6h-OL-evP"/>
                         <outlet property="rsvpCountsLabel" destination="mzm-6t-9m7" id="elh-lr-NP3"/>
+                        <outlet property="searchDisplayController" destination="lQm-8m-eLv" id="yzL-zX-l8L"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LuS-1q-FZL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="lQm-8m-eLv">
+                    <connections>
+                        <outlet property="delegate" destination="6pk-DN-YNT" id="h8g-ok-xjY"/>
+                        <outlet property="searchContentsController" destination="6pk-DN-YNT" id="b0U-oH-efI"/>
+                        <outlet property="searchResultsDataSource" destination="6pk-DN-YNT" id="stw-Z7-Euf"/>
+                        <outlet property="searchResultsDelegate" destination="6pk-DN-YNT" id="IDB-nb-orI"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="2425.5" y="327"/>
         </scene>
