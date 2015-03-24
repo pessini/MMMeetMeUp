@@ -54,57 +54,43 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <searchBar contentMode="redraw" searchBarStyle="prominent" translatesAutoresizingMaskIntoConstraints="NO" id="7sX-Xg-vkc">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="twg-qe-DFl" secondAttribute="bottom" id="BBt-oL-Oc9"/>
-                            <constraint firstItem="twg-qe-DFl" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="Gbz-SD-OmQ"/>
+                            <constraint firstItem="twg-qe-DFl" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="Gbz-SD-OmQ">
+                                <variation key="widthClass=compact" constant="-64"/>
+                            </constraint>
                             <constraint firstItem="twg-qe-DFl" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="-16" id="Ocz-GG-Wq4"/>
-                            <constraint firstItem="7sX-Xg-vkc" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="XeD-J4-UgJ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="twg-qe-DFl" secondAttribute="trailing" constant="-16" id="co9-V5-AoI"/>
-                            <constraint firstItem="7sX-Xg-vkc" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="-16" id="gSe-4z-FI8"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="7sX-Xg-vkc" secondAttribute="trailing" constant="-16" id="vEg-Pt-t5p"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="twg-qe-DFl"/>
-                                <exclude reference="7sX-Xg-vkc"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="BBt-oL-Oc9"/>
-                                <exclude reference="XeD-J4-UgJ"/>
-                                <exclude reference="gSe-4z-FI8"/>
-                                <exclude reference="vEg-Pt-t5p"/>
                                 <exclude reference="Gbz-SD-OmQ"/>
                                 <exclude reference="Ocz-GG-Wq4"/>
                                 <exclude reference="co9-V5-AoI"/>
+                                <exclude reference="BBt-oL-Oc9"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
                             <mask key="subviews">
                                 <include reference="twg-qe-DFl"/>
-                                <include reference="7sX-Xg-vkc"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="BBt-oL-Oc9"/>
-                                <include reference="XeD-J4-UgJ"/>
-                                <include reference="gSe-4z-FI8"/>
-                                <include reference="vEg-Pt-t5p"/>
                                 <include reference="Gbz-SD-OmQ"/>
                                 <include reference="Ocz-GG-Wq4"/>
                                 <include reference="co9-V5-AoI"/>
+                                <include reference="BBt-oL-Oc9"/>
                             </mask>
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Meet Me Up" id="RwI-1h-ibY"/>
                     <connections>
                         <outlet property="eventsTableView" destination="twg-qe-DFl" id="Ea8-bF-O8M"/>
-                        <outlet property="searchBar" destination="7sX-Xg-vkc" id="SgP-Z9-clH"/>
-                        <outlet property="searchDisplayController" destination="QZw-oG-gGZ" id="KV5-ZH-ztN"/>
+                        <outlet property="searchDisplayController" destination="qJy-zY-gXQ" id="uRs-69-syU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
@@ -114,6 +100,14 @@
                         <outlet property="searchContentsController" destination="vXZ-lx-hvc" id="FZq-Mq-4qI"/>
                         <outlet property="searchResultsDataSource" destination="vXZ-lx-hvc" id="L6m-Nv-nEi"/>
                         <outlet property="searchResultsDelegate" destination="vXZ-lx-hvc" id="hg7-r9-nov"/>
+                    </connections>
+                </searchDisplayController>
+                <searchDisplayController id="qJy-zY-gXQ">
+                    <connections>
+                        <outlet property="delegate" destination="vXZ-lx-hvc" id="vcR-UB-5B1"/>
+                        <outlet property="searchContentsController" destination="vXZ-lx-hvc" id="Aji-LP-1YQ"/>
+                        <outlet property="searchResultsDataSource" destination="vXZ-lx-hvc" id="kzH-vO-fLd"/>
+                        <outlet property="searchResultsDelegate" destination="vXZ-lx-hvc" id="vlO-cU-bi1"/>
                     </connections>
                 </searchDisplayController>
             </objects>
