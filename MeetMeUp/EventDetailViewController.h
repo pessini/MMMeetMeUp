@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  EventDetailViewController.h
 //  MeetMeUp
 //
 //  Created by Leandro Pessini on 3/23/15.
@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface EventDetailViewController : UIViewController
 
+@property NSDictionary *eventDetails;
 
 @end
-
