@@ -36,13 +36,6 @@
                               eventID,
                               groupID,
                               APIKey];
-    NSLog(@"%@", [NSString stringWithFormat:
-                  APIProfile,
-                  memberID,
-                  commentID,
-                  eventID,
-                  groupID,
-                  APIKey]);
 
     NSURL *url = [NSURL URLWithString:searchString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
