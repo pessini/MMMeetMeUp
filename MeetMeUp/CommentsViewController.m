@@ -82,10 +82,15 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(UITableViewCell *)cell
 {
-    if ([segue.identifier isEqualToString:@"ShowWebPageSegue"])
+    if ([segue.identifier isEqualToString:@"ShowProfileSegue"])
     {
         ProfileViewController *vc = segue.destinationViewController;
-        vc.url = self.event.eventURL;
+        NSIndexPath *indexPath = [self.commentsTableView indexPathForCell:cell];
+        Comments *comment = [self.commentsArray objectAtIndex:indexPath.row];
+        vc.commentID = comment.commentID;
+        vc.groupID = comment.groupID;
+        vc.memberID = comment.memberID;
+        vc.eventID = comment.eventID;
     }
 }
 

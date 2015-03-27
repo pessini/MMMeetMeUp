@@ -10,4 +10,15 @@
 
 @interface Profile : NSObject
 
+@property NSString *memberName;
+@property NSString *memberPhotoLink;
+@property NSString *comment;
+
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
+
+- (void)requestMemberProfileWithMemberID:(NSString *)memberID
+                              andEventID:(NSString *)eventID
+                              andGroupID:(NSString *)groupID
+                            andCommentID:(NSString *)commentID
+                   withCompletionHandler:(void (^)(NSMutableArray *searchArray))completionHandler;
 @end

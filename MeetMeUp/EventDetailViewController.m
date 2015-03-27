@@ -40,6 +40,7 @@
 
 -(void)loadInfo
 {
+    self.navigationItem.title = self.event.eventName;
     self.eventNameLabel.text = self.event.eventName;
     [self.rsvpCountsButton setTitle:[NSString stringWithFormat:@"%@", self.event.rsvpCount] forState:UIControlStateNormal];
     self.groupInformationLabel.text = self.event.groupName;

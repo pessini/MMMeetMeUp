@@ -12,8 +12,12 @@
 
 @property NSString *comment;
 @property NSString *memberName;
-@property NSString *memberID;
 @property NSString *time;
+@property NSString *memberID;
+@property NSString *groupID;
+@property NSString *commentID;
+@property NSString *eventID;
+
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 - (void)requestCommentsFromEventID: (NSString *)eventID withCompletionHandler:(void (^)(NSMutableArray *searchArray))completionHandler;

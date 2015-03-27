@@ -18,8 +18,11 @@
     {
         self.comment = dictionary[@"comment"];
         self.memberName = dictionary[@"member_name"];
-        self.memberID = dictionary[@"member_id"];
         self.time = dictionary[@"time"];
+        self.memberID = dictionary[@"member_id"];
+        self.groupID = dictionary[@"group_id"];
+        self.eventID = dictionary[@"event_id"];
+        self.commentID = dictionary[@"event_comment_id"];
     }
     return self;
 }
