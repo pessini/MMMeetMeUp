@@ -7,17 +7,15 @@
 //
 
 #import "CommentsViewController.h"
+#import "ProfileViewController.h"
 
 @interface CommentsViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *commentsTableView;
 @property NSArray *commentsArray;
+@property Comments *comments;
 
 @end
-
-NSString * const API_URL_EVENT = @"https://api.meetup.com/2/event_comments?offset=0&sign=True&format=json&event_id=";
-
-// 2/event_comments?offset=0&format=json&event_id=221063031&photo-host=public&page=20&order=time&desc=desc&sig_id=123701892&sig=3ec17eb4b18de94939e2a17b80a2344694e48a2a
 
 @implementation CommentsViewController
 
@@ -29,10 +27,8 @@ NSString * const API_URL_EVENT = @"https://api.meetup.com/2/event_comments?offse
     self.commentsTableView.dataSource = self;
     self.commentsTableView.delegate = self;
 
-    [self apiRequestFromURL:[NSString stringWithFormat:@"%@%@&photo-host=public&page=1&order=time&desc=desc", API_URL_EVENT, self.eventID]];
-
-
-    NSLog(@"%@", self.commentsArray);
+    self.comments = [Comments new];
+    [self getDataFromAPI];
 }
 
 #pragma mark -UITableViewDataSource
@@ -45,26 +41,52 @@ NSString * const API_URL_EVENT = @"https://api.meetup.com/2/event_comments?offse
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [self.commentsTableView dequeueReusableCellWithIdentifier:@"CommentCell"];
-    NSDictionary *comments = [self.commentsArray objectAtIndex:indexPath.row];
-    cell.textLabel.text = [comments objectForKey:@"member_name"];
-    cell.detailTextLabel.text = [comments objectForKey:@"comment"];
+
+    if (self.commentsArray.count > 0)
+    {
+
+        Comments *comment = [self.commentsArray objectAtIndex:indexPath.row];
+
+        cell.textLabel.text = [NSString stringWithFormat:@"%@ - %@",
+                               comment.memberName,
+                               [self convertStringTimestampToDate:comment.time]];
+        cell.detailTextLabel.text = comment.comment;
+    }
+    else
+    {
+        cell.textLabel.text = @"This event has no comments.";
+    }
 
     return cell;
 }
 
-#pragma mark -Helper Methods
-
--(void)apiRequestFromURL: (NSString *)string
+- (void)getDataFromAPI
 {
-    NSURL *url = [NSURL URLWithString:string];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError)
-    {
-        NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&connectionError];
-        NSLog(@"%@", dictionary);
-        self.commentsArray = [dictionary objectForKey:@"results"];
+    [self.comments requestCommentsFromEventID:self.eventID withCompletionHandler:^(NSMutableArray *comments) {
+        self.commentsArray = comments;
         [self.commentsTableView reloadData];
     }];
+}
+
+-(NSString *)convertStringTimestampToDate:(NSString *) string
+{
+    NSString *timeStampString = string;
+    NSTimeInterval interval = [timeStampString doubleValue];
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:interval];
+    NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
+    [formatter setDateFormat:@"MM-dd 'at' HH:mm"];
+    return [formatter stringFromDate:date];
+}
+
+#pragma mark - Segue
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(UITableViewCell *)cell
+{
+    if ([segue.identifier isEqualToString:@"ShowWebPageSegue"])
+    {
+        ProfileViewController *vc = segue.destinationViewController;
+        vc.url = self.event.eventURL;
+    }
 }
 
 @end

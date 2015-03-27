@@ -11,8 +11,6 @@
 #define APIKey @"679336f676c69291d1f183928375451"
 #define APIURL @"https://api.meetup.com/2/open_events.json?zip=60604&text=mobile&time=,1w&key=%@"
 #define APISearch @"https://api.meetup.com/2/open_events.json?zip=60604&text=%@&time=,1w&key=%@"
-#define APIComment @"https://api.meetup.com/2/event_comments?&sign=true&photo-host=public&event_id=%@&page=20&key=%@"
-#define APIImage @"https://api.meetup.com/2/profiles?&sign=true&photo-host=public&group_id=%@&page=1&key=%@"
 
 @implementation Events
 
@@ -29,8 +27,10 @@
     return instance;
 }
 
-- (instancetype)initWithDictionary:(NSDictionary *)dictionary {
-    if (self = [super init]) {
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary
+{
+    if (self = [super init])
+    {
         // Event Main
         self.eventDescription = [NSString stringWithFormat:@"<html><head></head><body> %@ </body></html>", dictionary[@"description"]];
         self.eventURL = dictionary[@"event_url"];
@@ -40,8 +40,6 @@
 
         // Group
         self.groupName = dictionary[@"group"][@"name"];
-        self.groupID = dictionary[@"group"][@"id"];
-        self.groupURLName = dictionary[@"group"][@"urlname"];
 
         // Venue
         self.venueAddress = dictionary[@"venue"][@"address_1"];
@@ -49,18 +47,15 @@
         self.venueState = dictionary[@"venue"][@"state"];
         self.venueName = dictionary[@"venue"][@"name"];
 
-        // Image
-        self.image = dictionary[@"photo_url"];
-
         // Address
         self.fullAddress = [NSString stringWithFormat:@"%@, %@, %@", self.venueAddress, self.venueCity, self.venueState];
     }
     return self;
 }
 
-- (void)searchWithKeyword:(NSString *)keyword withCompletionHandler:(void (^)(NSMutableArray *searchArray))completionHandler {
+- (void)searchWithKeyword:(NSString *)keyword withCompletionHandler:(void (^)(NSMutableArray *searchArray))completionHandler
+{
     NSString *searchString = [NSString stringWithFormat:@"https://api.meetup.com/2/open_events.json?zip=60604&text=%@&time=,1w&key=%@", keyword, APIKey];
-
     NSURL *url = [NSURL URLWithString:searchString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {

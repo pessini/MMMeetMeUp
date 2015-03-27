@@ -63,8 +63,8 @@
     else if ([segue.identifier isEqualToString:@"ShowCommentsSegue"])
     {
         UINavigationController *navigationController = segue.destinationViewController;
-        CommentsViewController *commentsViewController = navigationController.viewControllers[0];
-        commentsViewController.eventID = self.event.eventID;
+        CommentsViewController *commentsVC = navigationController.viewControllers[0];
+        commentsVC.eventID = self.event.eventID;
     }
 }
 

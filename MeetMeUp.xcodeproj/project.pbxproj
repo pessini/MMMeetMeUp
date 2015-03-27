@@ -19,7 +19,8 @@
 		5642EBAB1AC098CD0050E054 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5642EBA91AC098CD0050E054 /* LaunchScreen.xib */; };
 		5642EBB71AC098CD0050E054 /* MeetMeUpTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5642EBB61AC098CD0050E054 /* MeetMeUpTests.m */; };
 		566F15581AC4C46800BF9DD7 /* Events.m in Sources */ = {isa = PBXBuildFile; fileRef = 566F15571AC4C46800BF9DD7 /* Events.m */; };
-		566F155B1AC4C47A00BF9DD7 /* API.m in Sources */ = {isa = PBXBuildFile; fileRef = 566F155A1AC4C47A00BF9DD7 /* API.m */; };
+		566F155F1AC4DDAD00BF9DD7 /* Comments.m in Sources */ = {isa = PBXBuildFile; fileRef = 566F155E1AC4DDAD00BF9DD7 /* Comments.m */; };
+		566F15621AC4E3AD00BF9DD7 /* Profile.m in Sources */ = {isa = PBXBuildFile; fileRef = 566F15611AC4E3AD00BF9DD7 /* Profile.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,8 +57,10 @@
 		5642EBB61AC098CD0050E054 /* MeetMeUpTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MeetMeUpTests.m; sourceTree = "<group>"; };
 		566F15561AC4C46800BF9DD7 /* Events.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Events.h; sourceTree = "<group>"; };
 		566F15571AC4C46800BF9DD7 /* Events.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Events.m; sourceTree = "<group>"; };
-		566F15591AC4C47A00BF9DD7 /* API.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = API.h; sourceTree = "<group>"; };
-		566F155A1AC4C47A00BF9DD7 /* API.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = API.m; sourceTree = "<group>"; };
+		566F155D1AC4DDAD00BF9DD7 /* Comments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comments.h; sourceTree = "<group>"; };
+		566F155E1AC4DDAD00BF9DD7 /* Comments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comments.m; sourceTree = "<group>"; };
+		566F15601AC4E3AD00BF9DD7 /* Profile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Profile.h; sourceTree = "<group>"; };
+		566F15611AC4E3AD00BF9DD7 /* Profile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Profile.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,9 +104,9 @@
 			children = (
 				5642EB9E1AC098CD0050E054 /* AppDelegate.h */,
 				5642EB9F1AC098CD0050E054 /* AppDelegate.m */,
+				5642EBA41AC098CD0050E054 /* Main.storyboard */,
 				566F155C1AC4C47F00BF9DD7 /* Model */,
 				566F15551AC4C3FA00BF9DD7 /* Controller */,
-				5642EBA41AC098CD0050E054 /* Main.storyboard */,
 				5642EBA71AC098CD0050E054 /* Images.xcassets */,
 				5642EBA91AC098CD0050E054 /* LaunchScreen.xib */,
 				5642EB9A1AC098CD0050E054 /* Supporting Files */,
@@ -159,8 +162,10 @@
 			children = (
 				566F15561AC4C46800BF9DD7 /* Events.h */,
 				566F15571AC4C46800BF9DD7 /* Events.m */,
-				566F15591AC4C47A00BF9DD7 /* API.h */,
-				566F155A1AC4C47A00BF9DD7 /* API.m */,
+				566F155D1AC4DDAD00BF9DD7 /* Comments.h */,
+				566F155E1AC4DDAD00BF9DD7 /* Comments.m */,
+				566F15601AC4E3AD00BF9DD7 /* Profile.h */,
+				566F15611AC4E3AD00BF9DD7 /* Profile.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -266,12 +271,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				5642EBA31AC098CD0050E054 /* EventsListViewController.m in Sources */,
+				566F15621AC4E3AD00BF9DD7 /* Profile.m in Sources */,
 				5602A6A31AC0CBFC00888FF9 /* WebViewController.m in Sources */,
 				5602A6A61AC1986000888FF9 /* CommentsViewController.m in Sources */,
+				566F155F1AC4DDAD00BF9DD7 /* Comments.m in Sources */,
 				5642EBA01AC098CD0050E054 /* AppDelegate.m in Sources */,
 				566F15581AC4C46800BF9DD7 /* Events.m in Sources */,
 				5602A6A91AC1989C00888FF9 /* ProfileViewController.m in Sources */,
-				566F155B1AC4C47A00BF9DD7 /* API.m in Sources */,
 				5602A6A01AC0BCB700888FF9 /* EventDetailViewController.m in Sources */,
 				5642EB9D1AC098CD0050E054 /* main.m in Sources */,
 			);

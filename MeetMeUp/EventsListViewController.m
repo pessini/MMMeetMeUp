@@ -15,12 +15,9 @@
 @property (weak, nonatomic) IBOutlet UITableView *eventsTableView;
 @property NSArray *eventsArray;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
-@property Events *articles;
+@property Events *events;
 
 @end
-
-NSString * const API_URL = @"https://api.meetup.com/2/open_events.json?zip=60604&text=mobile&time=,1w&key=679336f676c69291d1f183928375451";
-
 
 @implementation EventsListViewController
 
@@ -35,8 +32,7 @@ NSString * const API_URL = @"https://api.meetup.com/2/open_events.json?zip=60604
     // Search Bar Delegate
     self.searchBar.delegate = self;
 
-    self.articles = [Events new];
-
+    self.events = [Events new];
     [self getDataFromAPI];
 }
 
@@ -64,7 +60,7 @@ NSString * const API_URL = @"https://api.meetup.com/2/open_events.json?zip=60604
     NSString *searchString = searchBar.text;
     NSCharacterSet *charSet = [NSCharacterSet whitespaceCharacterSet];
     if (![[searchString stringByTrimmingCharactersInSet:charSet] length] == 0) {
-        [self.articles searchWithKeyword:searchString withCompletionHandler:^(NSMutableArray *searchArray) {
+        [self.events searchWithKeyword:searchString withCompletionHandler:^(NSMutableArray *searchArray) {
             self.eventsArray = searchArray;
             [self.eventsTableView reloadData];
         }];
@@ -74,7 +70,7 @@ NSString * const API_URL = @"https://api.meetup.com/2/open_events.json?zip=60604
 #pragma mark - Helper Method
 
 - (void)getDataFromAPI {
-    [self.articles searchWithKeyword:@"mobile" withCompletionHandler:^(NSMutableArray *searchArray) {
+    [self.events searchWithKeyword:@"mobile" withCompletionHandler:^(NSMutableArray *searchArray) {
         self.eventsArray = searchArray;
         [self.eventsTableView reloadData];
     }];
@@ -90,7 +86,6 @@ NSString * const API_URL = @"https://api.meetup.com/2/open_events.json?zip=60604
         UINavigationController *navigationController = segue.destinationViewController;
         EventDetailViewController *eventDetailViewController = navigationController.viewControllers[0];
         Events *event = [self.eventsArray objectAtIndex:indexPath.row];
-        NSLog(@"%@", event);
         eventDetailViewController.event = event;
     }
 }

@@ -274,20 +274,35 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="0.0" y="0.0" width="400" height="600"/>
-                                </variation>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="DG7-js-3gl" secondAttribute="trailing" constant="-16" id="LZJ-nx-nvB"/>
+                            <constraint firstItem="DG7-js-3gl" firstAttribute="bottom" secondItem="Fou-xs-dTi" secondAttribute="bottomMargin" id="ZZk-lZ-wRl"/>
+                            <constraint firstItem="DG7-js-3gl" firstAttribute="top" secondItem="Fou-xs-dTi" secondAttribute="topMargin" id="adZ-au-9Cp"/>
+                            <constraint firstItem="DG7-js-3gl" firstAttribute="leading" secondItem="Fou-xs-dTi" secondAttribute="leadingMargin" constant="-16" id="d6Q-3v-uP3"/>
+                        </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="DG7-js-3gl"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="LZJ-nx-nvB"/>
+                                <exclude reference="ZZk-lZ-wRl"/>
+                                <exclude reference="adZ-au-9Cp"/>
+                                <exclude reference="d6Q-3v-uP3"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
                             <mask key="subviews">
                                 <include reference="DG7-js-3gl"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="LZJ-nx-nvB"/>
+                                <include reference="ZZk-lZ-wRl"/>
+                                <include reference="adZ-au-9Cp"/>
+                                <include reference="d6Q-3v-uP3"/>
                             </mask>
                         </variation>
                     </view>

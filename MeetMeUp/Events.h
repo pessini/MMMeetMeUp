@@ -17,21 +17,13 @@
 @property NSString *eventName;
 @property NSString *eventID;
 @property NSString *rsvpCount;
-
 @property NSString *groupName;
-@property NSString *groupID;
-@property NSString *groupURLName;
-
 @property NSString *venueAddress;
 @property NSString *venueCity;
 @property NSString *venueState;
 @property NSString *venueName;
-
-@property NSURL *image;
-
-@property NSArray *comments;
-
 @property NSString *fullAddress;
+
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 - (void)searchWithKeyword:(NSString *)keyword withCompletionHandler:(void(^)(NSMutableArray *searchArray))completionHandler;
 
