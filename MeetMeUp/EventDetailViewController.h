@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Events.h"
 
 @interface EventDetailViewController : UIViewController
 
-@property NSDictionary *eventDetails;
+@property Events *event;
 
 @end

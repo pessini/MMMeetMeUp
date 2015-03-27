@@ -8,12 +8,14 @@
 
 #import "EventDetailViewController.h"
 #import "WebViewController.h"
+#import "CommentsViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 
 @interface EventDetailViewController ()
 
 @property (weak, nonatomic) IBOutlet UILabel *eventNameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *rsvpCountsLabel;
+@property (weak, nonatomic) IBOutlet UIButton *rsvpCountsButton;
 @property (weak, nonatomic) IBOutlet UILabel *groupInformationLabel;
 @property (weak, nonatomic) IBOutlet UITextView *eventDescriptionTextView;
 
@@ -25,23 +27,45 @@
 {
     [super viewDidLoad];
 
-    self.eventNameLabel.text = [self.eventDetails objectForKey:@"name"];
-    self.rsvpCountsLabel.text = [NSString stringWithFormat:@"RSVP: %@", [self.eventDetails objectForKey:@"yes_rsvp_count"]];
-    self.groupInformationLabel.text = [[self.eventDetails objectForKey:@"group"] objectForKey:@"name"];
+    [self loadInfo];
+    [self updateUI];
+}
 
-    NSAttributedString *attributedString = [[NSAttributedString alloc] initWithData:[[self.eventDetails objectForKey:@"description"] dataUsingEncoding:NSUnicodeStringEncoding]
-                                                                            options:@{ NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType }                                            documentAttributes:nil                                            error:nil];
+#pragma mark - Elements
+
+-(void)updateUI
+{
+    self.rsvpCountsButton.layer.cornerRadius = self.rsvpCountsButton.bounds.size.width / 2.0;
+}
+
+-(void)loadInfo
+{
+    self.eventNameLabel.text = self.event.eventName;
+    [self.rsvpCountsButton setTitle:[NSString stringWithFormat:@"%@", self.event.rsvpCount] forState:UIControlStateNormal];
+    self.groupInformationLabel.text = self.event.groupName;
+
+    NSAttributedString *attributedString = [[NSAttributedString alloc]
+                                            initWithData:[self.event.eventDescription dataUsingEncoding:NSUnicodeStringEncoding]
+                                            options:@{ NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType }                                            documentAttributes:nil                                            error:nil];
     self.eventDescriptionTextView.attributedText = attributedString;
 }
+
+
+#pragma mark - Segue
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"ShowWebPageSegue"])
     {
         WebViewController *vc = segue.destinationViewController;
-        vc.url = [self.eventDetails objectForKey:@"event_url"];
+        vc.url = self.event.eventURL;
+    }
+    else if ([segue.identifier isEqualToString:@"ShowCommentsSegue"])
+    {
+        UINavigationController *navigationController = segue.destinationViewController;
+        CommentsViewController *commentsViewController = navigationController.viewControllers[0];
+        commentsViewController.eventID = self.event.eventID;
     }
 }
-
 
 @end
