@@ -13,8 +13,8 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *memberNameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *profilePhotoImageView;
-@property (weak, nonatomic) IBOutlet UILabel *fullCommentLabel;
-@property NSArray *profileArray;
+@property (weak, nonatomic) IBOutlet UILabel *cityStateLabel;
+
 @property Profile *profile;
 @end
 
@@ -23,36 +23,23 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.profile = [Profile new];
-    self.profileArray = [NSArray new];
-    [self getDataFromAPI];
-    [self loadInfo];
 
-    NSLog(@"%@", self.profileArray);
+    self.profile = [Profile retrieveMemberProfileWithID:self.memberID];
+    [self loadInfo];
 }
 
 -(void)loadInfo
 {
     self.memberNameLabel.text = self.profile.memberName;
-    self.profilePhotoImageView.image = [UIImage imageWithData:[self loadImageFromURL:self.profile.memberPhotoLink]];
-    self.fullCommentLabel.text = self.profile.comment;
-}
 
-- (void)getDataFromAPI
-{
-    [self.profile requestMemberProfileWithMemberID:self.memberID andEventID:self.eventID andGroupID:self.groupID andCommentID:self.commentID withCompletionHandler:^(NSMutableArray *searchArray)
+    [self.profile getImageDataWithCompletion:^(NSData *imageData, NSError *error)
     {
-        self.profileArray = searchArray;
+        self.profilePhotoImageView.image = [UIImage imageWithData:imageData];
+        self.profilePhotoImageView.contentMode = UIViewContentModeScaleAspectFit;
     }];
-}
 
--(NSData *)loadImageFromURL: (NSString *)url
-{
-    NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
-//    NSData * imageData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: url]];
-    return imageData;
+    self.cityStateLabel.text = [NSString stringWithFormat:@"%@, %@", self.profile.city, self.profile.state];
 }
-
 
 
 @end

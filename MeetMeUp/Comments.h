@@ -20,6 +20,8 @@
 
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
-- (void)requestCommentsFromEventID: (NSString *)eventID withCompletionHandler:(void (^)(NSMutableArray *searchArray))completionHandler;
+- (NSString *)convertStringTimestampToDate:(NSString *)timestamp;
+
++ (void)retrieveCommentsFromEvent:(NSString *)eventID withCompletionHandler:(void (^)(NSMutableArray *comments))completionHandler;
 
 @end

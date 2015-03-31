@@ -13,7 +13,7 @@
 @interface EventsListViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *eventsTableView;
-@property NSArray *eventsArray;
+@property (nonatomic)  NSArray *eventsArray;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property Events *events;
 
@@ -36,6 +36,12 @@
     [self getDataFromAPI];
 }
 
+-(void)setEventsArray:(NSArray *)eventsArray
+{
+    _eventsArray = eventsArray;
+    [self.eventsTableView reloadData];
+}
+
 #pragma mark -UITableViewDataSource
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -56,13 +62,14 @@
 
 #pragma mark - Search Bar
 
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
     NSString *searchString = searchBar.text;
     NSCharacterSet *charSet = [NSCharacterSet whitespaceCharacterSet];
-    if (![[searchString stringByTrimmingCharactersInSet:charSet] length] == 0) {
-        [self.events searchWithKeyword:searchString withCompletionHandler:^(NSMutableArray *searchArray) {
+    if (![[searchString stringByTrimmingCharactersInSet:charSet] length] == 0)
+    {
+        [Events retrieveEventsUsingKeyword:searchString withCompletionHandler:^(NSMutableArray *searchArray) {
             self.eventsArray = searchArray;
-            [self.eventsTableView reloadData];
         }];
     }
 }
@@ -70,9 +77,8 @@
 #pragma mark - Helper Method
 
 - (void)getDataFromAPI {
-    [self.events searchWithKeyword:@"mobile" withCompletionHandler:^(NSMutableArray *searchArray) {
+    [Events retrieveEventsUsingKeyword:@"mobile" withCompletionHandler:^(NSMutableArray *searchArray) {
         self.eventsArray = searchArray;
-        [self.eventsTableView reloadData];
     }];
 }
 

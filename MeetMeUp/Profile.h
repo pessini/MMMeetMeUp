@@ -11,14 +11,13 @@
 @interface Profile : NSObject
 
 @property NSString *memberName;
-@property NSString *memberPhotoLink;
-@property NSString *comment;
+@property NSURL *memberPhotoLink;
+@property NSString *city;
+@property NSString *state;
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
+- (void)getImageDataWithCompletion:(void (^)(NSData *imageData, NSError *error))complete;
 
-- (void)requestMemberProfileWithMemberID:(NSString *)memberID
-                              andEventID:(NSString *)eventID
-                              andGroupID:(NSString *)groupID
-                            andCommentID:(NSString *)commentID
-                   withCompletionHandler:(void (^)(NSMutableArray *searchArray))completionHandler;
++ (Profile *)retrieveMemberProfileWithID:(NSString *)memberID;
+
 @end

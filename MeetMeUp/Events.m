@@ -9,23 +9,9 @@
 #import "Events.h"
 
 #define APIKey @"679336f676c69291d1f183928375451"
-#define APIURL @"https://api.meetup.com/2/open_events.json?zip=60604&text=mobile&time=,1w&key=%@"
 #define APISearch @"https://api.meetup.com/2/open_events.json?zip=60604&text=%@&time=,1w&key=%@"
 
 @implementation Events
-
-+(Events *)sharedInstance
-{
-    static dispatch_once_t once;
-    static Events *instance;
-    dispatch_once(&once, ^{
-        if (!instance)
-        {
-            instance = [[Events alloc] init];
-        }
-    });
-    return instance;
-}
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
@@ -53,17 +39,20 @@
     return self;
 }
 
-- (void)searchWithKeyword:(NSString *)keyword withCompletionHandler:(void (^)(NSMutableArray *searchArray))completionHandler
++ (void)retrieveEventsUsingKeyword:(NSString *)keyword withCompletionHandler:(void (^)(NSMutableArray *events))completionHandler
 {
-    NSString *searchString = [NSString stringWithFormat:@"https://api.meetup.com/2/open_events.json?zip=60604&text=%@&time=,1w&key=%@", keyword, APIKey];
+    NSString *searchString = [NSString stringWithFormat:APISearch, keyword, APIKey];
     NSURL *url = [NSURL URLWithString:searchString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-        if (!connectionError) {
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError)
+    {
+        if (!connectionError)
+        {
             NSDictionary *searchDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&connectionError];
             NSArray *array = searchDict[@"results"];
             NSMutableArray *searchResult = [NSMutableArray new];
-            for (NSDictionary *searchItems in array) {
+            for (NSDictionary *searchItems in array)
+            {
                 Events *model = [[Events alloc] initWithDictionary:searchItems];
                 [searchResult addObject:model];
             }

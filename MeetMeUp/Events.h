@@ -10,8 +10,6 @@
 
 @interface Events : NSObject
 
-+(Events *)sharedInstance;
-
 @property NSString *eventDescription;
 @property NSString *eventURL;
 @property NSString *eventName;
@@ -25,6 +23,6 @@
 @property NSString *fullAddress;
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
-- (void)searchWithKeyword:(NSString *)keyword withCompletionHandler:(void(^)(NSMutableArray *searchArray))completionHandler;
++ (void)retrieveEventsUsingKeyword:(NSString *)keyword withCompletionHandler:(void (^)(NSMutableArray *events))completionHandler;
 
 @end

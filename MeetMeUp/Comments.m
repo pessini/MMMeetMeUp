@@ -11,6 +11,8 @@
 #define APIKey @"679336f676c69291d1f183928375451"
 #define APIComment @"https://api.meetup.com/2/event_comments?&sign=true&photo-host=public&event_id=%@&page=20&key=%@"
 
+//221129676
+
 @implementation Comments
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary {
@@ -27,7 +29,7 @@
     return self;
 }
 
-- (void)requestCommentsFromEventID: (NSString *)eventID withCompletionHandler:(void (^)(NSMutableArray *searchArray))completionHandler
++ (void)retrieveCommentsFromEvent:(NSString *)eventID withCompletionHandler:(void (^)(NSMutableArray *comments))completionHandler
 {
     NSString *searchString = [NSString stringWithFormat:APIComment, eventID, APIKey];
 
@@ -39,14 +41,24 @@
         {
             NSDictionary *searchDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&connectionError];
             NSArray *array = searchDict[@"results"];
-            NSMutableArray *searchResult = [NSMutableArray new];
+            NSMutableArray *requestResult = [NSMutableArray new];
             for (NSDictionary *searchItems in array)
             {
                 Comments *comment = [[Comments alloc] initWithDictionary:searchItems];
-                [searchResult addObject:comment];
+                [requestResult addObject:comment];
             }
-            completionHandler(searchResult);
+            completionHandler(requestResult);
         }
     }];
+}
+
+-(NSString *)convertStringTimestampToDate:(NSString *)timestamp
+{
+    NSString *timeStampString = timestamp;
+    NSTimeInterval interval = [timeStampString doubleValue];
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:interval];
+    NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
+    [formatter setDateFormat:@"MM-dd 'at' HH:mm"];
+    return [formatter stringFromDate:date];
 }
 @end
