@@ -82,10 +82,7 @@
         ProfileViewController *vc = segue.destinationViewController;
         NSIndexPath *indexPath = [self.commentsTableView indexPathForCell:cell];
         Comments *comment = [self.commentsArray objectAtIndex:indexPath.row];
-        vc.commentID = comment.commentID;
-        vc.groupID = comment.groupID;
         vc.memberID = comment.memberID;
-        vc.eventID = comment.eventID;
     }
 }
 

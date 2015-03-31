@@ -11,8 +11,5 @@
 @interface ProfileViewController : UIViewController
 
 @property NSString *memberID;
-@property NSString *groupID;
-@property NSString *commentID;
-@property NSString *eventID;
 
 @end
