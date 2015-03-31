@@ -8,4 +8,4 @@ You can also see the comments of the event and information about the user who co
 * MVC
 
 ###Note
-This project was originaly made on Week 3 / Day 1. Although on week 4 we had to refactor it to use MVC design pattern.
+This project was originally made on Week 3 / Day 1. Although on week 4 we had to refactor it to use MVC design pattern.
